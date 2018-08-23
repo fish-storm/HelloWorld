@@ -1,0 +1,6 @@
+com\demoone\mapping\VersionMapper.class
+com\demoone\Controller\DemoController.class
+com\demoone\DemooneApplication.class
+com\demoone\DTO\Version.class
+com\demoone\DAO\VersionMapper.class
+com\demoone\DTO\Demo.class

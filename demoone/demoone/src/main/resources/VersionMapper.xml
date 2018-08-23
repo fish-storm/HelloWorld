@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.demonne.DAO.VersionMapper" >
+  <resultMap id="BaseResultMap" type="com.demoone.DTO.Version" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="main_version" property="mainVersion" jdbcType="VARCHAR" />
+    <result column="beta_version" property="betaVersion" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="comm" property="comm" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, main_version, beta_version, path, comm
+  </sql>
+  <select id="selectLastest" resultMap="BaseResultMap">
+    select *
+    from version
+    ORDER BY id DESC
+    LIMIT 1
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from version
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from version
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.demoone.DTO.Version" >
+    insert into version (id, main_version, beta_version, 
+      path, comm)
+    values (#{id,jdbcType=INTEGER}, #{mainVersion,jdbcType=VARCHAR}, #{betaVersion,jdbcType=VARCHAR}, 
+      #{path,jdbcType=VARCHAR}, #{comm,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.demoone.DTO.Version" >
+    insert into version
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="mainVersion != null" >
+        main_version,
+      </if>
+      <if test="betaVersion != null" >
+        beta_version,
+      </if>
+      <if test="path != null" >
+        path,
+      </if>
+      <if test="comm != null" >
+        comm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="mainVersion != null" >
+        #{mainVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="betaVersion != null" >
+        #{betaVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="comm != null" >
+        #{comm,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.demoone.DTO.Version" >
+    update version
+    <set >
+      <if test="mainVersion != null" >
+        main_version = #{mainVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="betaVersion != null" >
+        beta_version = #{betaVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="comm != null" >
+        comm = #{comm,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.demoone.DTO.Version" >
+    update version
+    set main_version = #{mainVersion,jdbcType=VARCHAR},
+      beta_version = #{betaVersion,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
+      comm = #{comm,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
